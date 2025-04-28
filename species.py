@@ -56,10 +56,6 @@ class SpeciesSpecimen:
     def show_in_streamlit(self):
         """Display the species information in streamlit."""
         st.subheader(f"{self.name}", divider=True)
-        # if self.svg.exists():
-        #     st.image(self.svg, width=150)
-        # st.write(f"Life: {self.life}")
-        # st.write(f"Type: {self.type_.value}{self.diet.value}")
         pic, change_lives, info, _ = st.columns([3, 2, 6, 12])
         with pic:
             if self.svg.exists():
@@ -69,9 +65,9 @@ class SpeciesSpecimen:
             st.write(f"**Type**: {self.type_.value} {self.diet.value}")
             st.write(f"**Life**: {self.life}")
         with change_lives:
-            if st.button("💖", help="Add a life", key=f"{self.name}_plus"):
+            if st.button("", icon="💖", help="Add a life", key=f"{self.name}_plus"):
                 self._life += 1
-            if st.button("💔", help="Remove a life", key=f"{self.name}_minus"):
+            if st.button("", icon="💔", help="Remove a life", key=f"{self.name}_minus"):
                 self._life -= 1
 
         # st.write("---")
