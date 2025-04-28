@@ -1,4 +1,4 @@
-# Game of Food
+# 🥩Circle of Food🌿
 
 **Game of Food** is a fun and simple game where players take on the roles of different species—animals or plants, carnivorous or herbivorous—and try to "eat" the species of the other player. It’s a creative and strategic game that encourages players to think about ecosystems, food chains, and survival tactics.
 
@@ -22,7 +22,7 @@ This game was born during a brainstorming session with my 8-year-old daughter on
    - If the attacking species is carnivorous and the target is carnivorous: players play rock-paper-scissors. If the attacking species wins, the target loses 1 life point and the attacking species gains 2 life points. If the attacking species loses, the attacking species loses 1 life point and the target gains 1 life point.
 6. **End of Game**: The game never ends in a win or loss. Instead, it’s about the fun of playing and the interactions between species.
 
-## Features of the Video Version
+## Features of the Computer Version
 
 The computer version of **Game of Food** brings the game to life with interactive elements. It’s designed to be engaging for players of all ages, combining fun with a touch of education about nature and ecosystems.
 
