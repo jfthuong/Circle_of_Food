@@ -8,6 +8,14 @@ st.title("🥩Circle of Food🌿")
 
 player_1, player_2 = st.columns(2)
 
+PLAYER_1 = "P1"
+PLAYER_2 = "P2"
+
+if PLAYER_1 not in st.session_state:
+    st.session_state[PLAYER_1] = []
+if PLAYER_2 not in st.session_state:
+    st.session_state[PLAYER_2] = []
+
 with player_1:
     st.header("Player 1")
     player_1_name = st.text_input("Enter your name", "Player 1")
@@ -33,14 +41,18 @@ with player_1:
         diet=SpeciesDiet.CARNIVORE,
     )
 
-
-
     herb_snake = SpeciesSpecimen(
         name="Serpent Herbivore",
         species="snake",
         type_=SpeciesType.ANIMAL,
         diet=SpeciesDiet.HERBIVORE,
     )
+
+    if not st.session_state[PLAYER_1]:
+        st.session_state[PLAYER_1] = [cerf, plante_carnivore, renard, herb_snake]
+
+    for species in st.session_state[PLAYER_1]:
+        species.show_in_streamlit()
 
 
 with player_2:
@@ -75,3 +87,8 @@ with player_2:
         diet=SpeciesDiet.HERBIVORE,
     )
 
+    if not st.session_state[PLAYER_2]:
+        st.session_state[PLAYER_2] = [brocoli, loup, chouette, licorne]
+
+    for species in st.session_state[PLAYER_2]:
+        species.show_in_streamlit()
