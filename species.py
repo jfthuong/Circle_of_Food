@@ -1,6 +1,7 @@
 from enum import Enum
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Union
 
 import streamlit as st
 
@@ -30,22 +31,21 @@ class SpeciesSpecimen:
     type_: SpeciesType
     diet: SpeciesDiet
     name: str = field(default="")
-    life: int = field(init=False, repr=True)
-    # show: InitVar[bool] = field(default=True)
+    life: int = 0  # Will be updated in __post_init__
 
     def __post_init__(self):
         """Set the life of the species based on its type."""
         if not self.name:
             self.name = self.species.capitalize()
-        if self.diet == SpeciesDiet.CARNIVORE:
-            self.life = 2
-        elif self.diet == SpeciesDiet.HERBIVORE:
-            self.life = 3
-        else:
-            raise ValueError("Invalid species type")
 
-        # if show:
-        #     self.show_in_streamlit()
+        if not self.life:
+            if self.diet == SpeciesDiet.CARNIVORE:
+                self.life = 2
+            elif self.diet == SpeciesDiet.HERBIVORE:
+                self.life = 3
+            else:
+                raise ValueError("Invalid species type")
+
 
     @property
     def is_dead(self) -> bool:
@@ -110,4 +110,23 @@ class SpeciesSpecimen:
             st.write(f"**Type**: {self.type_.value} {self.diet.value}")
             st.write(f"**Life**: {self.life_heart}")
 
-        # st.write("---")
+    def to_json(self) -> dict[str, Union[str, int]]:
+        """Convert the species to a JSON serializable dictionary."""
+        return {
+            "species": self.species,
+            "type": self.type_.value,
+            "diet": self.diet.value,
+            "name": self.name,
+            "life": self.life,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict[str, Union[str, int]]) -> "SpeciesSpecimen":
+        """Create a species from a JSON serializable dictionary."""
+        return cls(
+            species=data["species"],
+            type_=SpeciesType(data["type"]),
+            diet=SpeciesDiet(data["diet"]),
+            name=data.get("name", ""),
+            life=data.get("life", 3),  # Default life for herbivores
+        )
